@@ -1,6 +1,13 @@
+<?php
+	
+	session_start();
+	if (isset($_SESSION["Usuario"]))
+		header("location:Principal.php");
+?>
+
 <html>
 <head>
-	<title>APELLIDO Y NOMBRE DEL ALUMNO</title>
+	<title>Alvarez Jessica</title>
 	  
         <meta charset="UTF-8">
         <!-- jQuery library -->
@@ -32,11 +39,6 @@
 			if(isset($_GET["uss"])){
 				echo "<h1>Usuario sin Sesi&oacute;n Activa!!!</h1>";
 			}
-			/*session_start();
-			if ($_SESSION['usuario']!=null) 
-			{
-				header("location:principal.php");
-			}*/
 		?>
 		</div>
 	</div>

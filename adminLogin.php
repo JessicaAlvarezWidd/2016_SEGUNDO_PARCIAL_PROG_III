@@ -1,1 +1,27 @@
-<?phpinclude_once ("clases/Usuario.php");include_once ("AccesoDatos.php");session_start(); public static function verificarlogin($email,$pass)    {               $consulta = AccesoDatos::dameUnObjetoAcceso()->RetornarConsulta("SELECT * FROM usuarios WHERE email = :email AND password = :password");                $consulta->execute(array(":email" => $email, ":password"=> $pass));        $usuario = $consulta->fetchObject('Usuario');                  if ($usuario == null)         {           echo "Usuario inexistente";        }        else        {            return $usuario;                    }    }
+<?php
+
+	require_once "clases/AccesoDatos.php";
+	require_once "clases/Usuario.php";
+
+	if (isset($_POST["email"]) && isset($_POST["password"]))
+	{
+		$objeto = new stdClass();
+		$objeto->email = $_POST["email"];
+		$objeto->password = $_POST["password"];
+
+		$usuario = Usuario::TraerUsuarioLogueado($objeto);
+
+		if ($usuario !== false)
+		{
+			session_start();
+
+			$_SESSION["Usuario"] = json_encode($usuario);
+
+			echo "Ok";
+		}
+		else
+			echo "ERROR";
+	}
+	else
+		header("location:login.php");
+?>
